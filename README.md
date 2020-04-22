@@ -35,7 +35,7 @@
 <a name="about"></a>
 ## About
 
-The `CSDK Sample App` is a C++ console app that shows the animations from the [Chroma Animation Guide](http://chroma.razer.com/ChromaGuide/).
+The `C# Sample App` is a C# console app that shows the animations from the [Chroma Animation Guide](http://chroma.razer.com/ChromaGuide/).
 
 **Screenshot:**
 
