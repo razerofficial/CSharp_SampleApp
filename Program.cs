@@ -6,7 +6,7 @@ namespace CSharp_SampleApp
 {
     class Program
     {
-        const int MAX_ITEMS = 40;
+        const int MAX_ITEMS = 47;
 
         static void PrintLegend(SampleApp app, int selectedIndex)
         {
