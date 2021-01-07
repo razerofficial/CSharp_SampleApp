@@ -41,7 +41,7 @@
 
 ![image_2](images/image_2.png)
 
-* If you don't have Chroma chardware, you can see Chroma effects with the [Chroma Emulator](https://github.com/razerofficial/ChromaEmulator)
+* If you don't have Chroma hardware, you can see Chroma effects with the [Chroma Emulator](https://github.com/razerofficial/ChromaEmulator)
 
 
 <a name="about"></a>
