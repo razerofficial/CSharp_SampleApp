@@ -33,12 +33,6 @@
 - [UnityNativeChromaSDK](https://github.com/RazerOfficial/UnityNativeChromaSDK) - Unity native library for the ChromaSDK
 
 
-<a name="about"></a>
-## About ##
-
-The `C# Sample App` is a C# console app that shows the animations from the [Chroma Animation Guide](http://chroma.razer.com/ChromaGuide/).
-
-
 ## Quick Start ##
 
 * Install [Synapse](https://www.razer.com/synapse-3)
@@ -48,6 +42,12 @@ The `C# Sample App` is a C# console app that shows the animations from the [Chro
 ![image_2](images/image_2.png)
 
 * If you don't have Chroma chardware, you can see Chroma effects with the [Chroma Emulator](https://github.com/razerofficial/ChromaEmulator)
+
+
+<a name="about"></a>
+## About ##
+
+The `C# Sample App` is a C# console app that shows the animations from the [Chroma Animation Guide](http://chroma.razer.com/ChromaGuide/).
 
 
 **Screenshot:**
