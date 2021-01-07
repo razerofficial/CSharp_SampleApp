@@ -2,6 +2,7 @@
 
 **Table of Contents**
 
+* [Quick Start](#quick-start)
 * [See Also](#see-also)
 * [About](#about)
 
@@ -42,6 +43,8 @@
 ![image_2](images/image_2.png)
 
 * If you don't have Chroma hardware, you can see Chroma effects with the [Chroma Emulator](https://github.com/razerofficial/ChromaEmulator)
+
+* Check out the docs on the [Unity Chroma API](https://github.com/razerofficial/UnityNativeChromaSDK/blob/master/README.md#api)
 
 
 <a name="about"></a>
