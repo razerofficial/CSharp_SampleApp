@@ -53,11 +53,17 @@ namespace CSharp_SampleApp
 
                 sampleApp.ExecuteItem(selectedIndex);
 
+                DateTime inputTimer = DateTime.MinValue;
+
                 while (true)
                 {
-                    PrintLegend(sampleApp, selectedIndex);
+                    if (inputTimer < DateTime.Now)
+                    {
+                        Console.Clear();
+                        PrintLegend(sampleApp, selectedIndex);
+                        inputTimer = DateTime.Now + TimeSpan.FromMilliseconds(100);
+                    }
                     ConsoleKeyInfo keyInfo = Console.ReadKey();
-                    Console.Clear();
 
                     if (keyInfo.Key == ConsoleKey.UpArrow)
                     {
