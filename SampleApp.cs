@@ -15,7 +15,24 @@ namespace CSharp_SampleApp
 
         public void Start()
         {
-            _mResult = ChromaAnimationAPI.Init();
+            ChromaSDK.APPINFOTYPE appInfo = new APPINFOTYPE();
+            appInfo.Title = "Razer Chroma CSharp Sample Application";
+            appInfo.Description = "A sample application using Razer Chroma SDK";
+
+            appInfo.Author_Name = "Razer";
+            appInfo.Author_Contact = "https://developer.razer.com/chroma";
+
+            //appInfo.SupportedDevice = 
+            //    0x01 | // Keyboards
+            //    0x02 | // Mice
+            //    0x04 | // Headset
+            //    0x08 | // Mousepads
+            //    0x10 | // Keypads
+            //    0x20   // ChromaLink devices
+            //    ;
+            appInfo.SupportedDevice = (0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x20);
+            appInfo.Category = 1;
+            _mResult = ChromaAnimationAPI.InitSDK(ref appInfo);
             switch (_mResult)
             {
                 case RazerErrors.RZRESULT_DLL_NOT_FOUND:
