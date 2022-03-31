@@ -1,4 +1,4 @@
-using ChromaSDK;
+﻿using ChromaSDK;
 using System;
 
 namespace CSharp_SampleApp
@@ -8,9 +8,85 @@ namespace CSharp_SampleApp
         private int _mResult = 0;
         private Random _mRandom = new Random();
 
+        const uint LEN_SHORTCODE_DEFAULT = 6;
+        const uint LEN_STREAM_ID_DEFAULT = 48;
+        const uint LEN_STREAM_KEY_DEFAULT = 48;
+        const uint LEN_STREAM_FOCUS_DEFAULT = 48;
+
+        string _mShortCode = GetDefaultString(LEN_SHORTCODE_DEFAULT);
+        byte _mLenShortCode = 0;
+
+        string _mStreamId = GetDefaultString(LEN_STREAM_ID_DEFAULT);
+        byte _mLenStreamId = 0;
+
+        string _mStreamKey = GetDefaultString(LEN_STREAM_KEY_DEFAULT);
+        byte _mLenStreamKey = 0;
+
+        string _mStreamFocus = GetDefaultString(LEN_STREAM_FOCUS_DEFAULT);
+        byte _mLenStreamFocus = 0;
+        string _mStreamFocusGuid = "UnitTest-" + Guid.NewGuid();
+
         public int GetInitResult()
         {
             return _mResult;
+        }
+
+        private static string GetDefaultString(uint length)
+        {
+            string result = string.Empty;
+            for (uint i = 0; i < length; ++i)
+            {
+                result += " ";
+            }
+            return result;
+        }
+
+        public string GetShortcode()
+        {
+            if (_mLenShortCode == 0)
+            {
+                return "NOT_SET";
+            }
+            else
+            {
+                return _mShortCode;
+            }
+        }
+
+        public string GetStreamId()
+        {
+            if (_mLenStreamId == 0)
+            {
+                return "NOT_SET";
+            }
+            else
+            {
+                return _mStreamId;
+            }
+        }
+
+        public string GetStreamKey()
+        {
+            if (_mLenStreamKey == 0)
+            {
+                return "NOT_SET";
+            }
+            else
+            {
+                return _mStreamKey;
+            }
+        }
+
+        public string GetStreamFocus()
+        {
+            if (_mLenStreamFocus == 0)
+            {
+                return "NOT_SET";
+            }
+            else
+            {
+                return _mStreamFocus;
+            }
         }
 
         public void Start()
@@ -56,14 +132,122 @@ namespace CSharp_SampleApp
 
         public string GetEffectName(int index)
         {
-            string result = string.Format("Effect{0}", index);
-            return result;
+            switch (index)
+            {
+                case -9:
+                    return "Request Shortcode\t";
+                case -8:
+                    return "Request StreamId\t";
+                case -7:
+                    return "Request StreamKey\t";
+                case -6:
+                    return "Release Shortcode\r\n";
+                case -5:
+                    return "Broadcast\t\t";
+                case -4:
+                    return "BroadcastEnd\r\n";
+                case -3:
+                    return "Watch\t\t";
+                case -2:
+                    return "WatchEnd\r\n";
+                case -1:
+                    return "GetFocus\t\t";
+                case 0:
+                    return "SetFocus\r\n";
+                default:
+                    return string.Format("Effect{0}", index);
+            }
         }
 
         public void ExecuteItem(int index)
         {
             switch (index)
             {
+                case -9:
+                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    {
+                        _mShortCode = GetDefaultString(LEN_SHORTCODE_DEFAULT);
+                        _mLenShortCode = 0;
+                        ChromaAnimationAPI.CoreStreamGetAuthShortcode(ref _mShortCode, out _mLenShortCode, "PC", "C# Sample App 好");
+                    }
+                    break;
+                case -8:
+                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    {
+                        _mStreamId = GetDefaultString(LEN_STREAM_ID_DEFAULT);
+                        _mLenStreamId = 0;
+                        ChromaAnimationAPI.CoreStreamGetId(_mShortCode, ref _mStreamId, out _mLenStreamId);
+                        if (_mLenStreamId > 0)
+                        {
+                            _mStreamId = _mStreamId.Substring(0, _mLenStreamId);
+                        }
+                    }
+                    break;
+                case -7:
+                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    {
+                        _mStreamKey = GetDefaultString(LEN_STREAM_KEY_DEFAULT);
+                        _mLenStreamKey = 0;
+                        ChromaAnimationAPI.CoreStreamGetKey(_mShortCode, ref _mStreamKey, out _mLenStreamKey);
+                        if (_mLenStreamId > 0)
+                        {
+                            _mStreamKey = _mStreamKey.Substring(0, _mLenStreamKey);
+                        }
+                    }
+                    break;
+                case -6:
+                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming() &&
+                        ChromaAnimationAPI.CoreStreamReleaseShortcode(_mShortCode))
+                    {
+                        _mShortCode = GetDefaultString(LEN_SHORTCODE_DEFAULT);
+                        _mLenShortCode = 0;
+                    }
+                    break;
+                case -5:
+                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming() &&
+                        _mLenStreamId > 0 &&
+                        _mLenStreamKey > 0)
+                    {
+                        ChromaAnimationAPI.CoreStreamBroadcast(_mStreamId, _mStreamKey);
+                    }
+                    break;
+                case -4:
+                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    {
+                        ChromaAnimationAPI.CoreStreamBroadcastEnd();
+                    }
+                    break;
+                case -3:
+                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming() &&
+                        _mLenStreamId > 0)
+                    {
+                        ChromaAnimationAPI.CoreStreamWatch(_mStreamId, 0);
+                    }
+                    break;
+                case -2:
+                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    {
+                        ChromaAnimationAPI.CoreStreamWatchEnd();
+                    }
+                    break;
+                case -1:
+                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    {
+                        _mStreamFocus = GetDefaultString(LEN_STREAM_FOCUS_DEFAULT);
+                        _mLenStreamFocus = 0;
+                        ChromaAnimationAPI.CoreStreamGetFocus(ref _mStreamFocus, out _mLenStreamFocus);
+                    }
+                    break;
+                case 0:
+                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    {
+                        ChromaAnimationAPI.CoreStreamSetFocus(_mStreamFocusGuid);
+
+                        _mStreamFocus = GetDefaultString(LEN_STREAM_FOCUS_DEFAULT);
+                        _mLenStreamFocus = 0;
+                        ChromaAnimationAPI.CoreStreamGetFocus(ref _mStreamFocus, out _mLenStreamFocus);
+                    }
+                    break;
                 case 1:
                     ShowEffect1();
                     ShowEffect1ChromaLink();

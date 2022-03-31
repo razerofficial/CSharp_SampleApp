@@ -15,7 +15,22 @@ namespace CSharp_SampleApp
             Console.WriteLine("Use UP and DOWN arrows to select an animation and press ENTER.");
             Console.WriteLine();
 
-            for (int index = 1; index <= MAX_ITEMS; ++index)
+            int startIndex = 1;
+
+            if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+            {
+                startIndex = -9;
+                Console.WriteLine("Streaming Info (SUPPORTED):");
+                ChromaSDK.Stream.StreamStatusType status = ChromaAnimationAPI.CoreStreamGetStatus();
+                Console.WriteLine(string.Format("Status: {0}", ChromaAnimationAPI.CoreStreamGetStatusString(status)));
+                Console.WriteLine(string.Format("Shortcode: {0}", app.GetShortcode()));
+                Console.WriteLine(string.Format("Stream Id: {0}", app.GetStreamId()));
+                Console.WriteLine(string.Format("Stream Key: {0}", app.GetStreamKey()));
+                Console.WriteLine(string.Format("Stream Focus: {0}", app.GetStreamFocus()));
+                Console.WriteLine();
+            }
+
+            for (int index = startIndex; index <= MAX_ITEMS; ++index)
             {
                 if (index == selectedIndex)
                 {
@@ -27,13 +42,16 @@ namespace CSharp_SampleApp
                 }
                 Console.Write("{0, 8}", app.GetEffectName(index));
 
-                if ((index % 4) == 0)
+                if (index > 0)
                 {
-                    Console.WriteLine();
-                }
-                else
-                {
-                    Console.Write("\t\t");
+                    if ((index % 4) == 0)
+                    {
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        Console.Write("\t\t");
+                    }
                 }
             }
 
@@ -47,11 +65,21 @@ namespace CSharp_SampleApp
             SampleApp sampleApp = new SampleApp();
             sampleApp.Start();
 
+            int startIndex = 1;
+
+            if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+            {
+                startIndex = -9;
+            }
+
             if (sampleApp.GetInitResult() == RazerErrors.RZRESULT_SUCCESS)
             {
                 int selectedIndex = 1;
 
-                sampleApp.ExecuteItem(selectedIndex);
+                if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                {
+                    selectedIndex = -9;
+                }
 
                 DateTime inputTimer = DateTime.MinValue;
 
@@ -67,7 +95,7 @@ namespace CSharp_SampleApp
 
                     if (keyInfo.Key == ConsoleKey.UpArrow)
                     {
-                        if (selectedIndex > 1)
+                        if (selectedIndex > startIndex)
                         {
                             --selectedIndex;
                         }
