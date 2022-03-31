@@ -31,9 +31,6 @@
 
 * If you don't have Chroma hardware, you can see Chroma effects with the [Chroma Emulator](https://github.com/razerofficial/ChromaEmulator)
 
-* Check out the docs on the [Unity Chroma API](https://github.com/razerofficial/UnityNativeChromaSDK/blob/master/README.md#api)
-
-
 <a name="about"></a>
 ## About ##
 
