@@ -8,37 +8,22 @@ namespace CSharp_SampleApp
         private int _mResult = 0;
         private Random _mRandom = new Random();
 
-        const uint LEN_SHORTCODE_DEFAULT = 6;
-        const uint LEN_STREAM_ID_DEFAULT = 48;
-        const uint LEN_STREAM_KEY_DEFAULT = 48;
-        const uint LEN_STREAM_FOCUS_DEFAULT = 48;
-
-        string _mShortCode = GetDefaultString(LEN_SHORTCODE_DEFAULT);
+        string _mShortCode = ChromaSDK.Stream.Default.Shortcode;
         byte _mLenShortCode = 0;
 
-        string _mStreamId = GetDefaultString(LEN_STREAM_ID_DEFAULT);
+        string _mStreamId = ChromaSDK.Stream.Default.StreamId;
         byte _mLenStreamId = 0;
 
-        string _mStreamKey = GetDefaultString(LEN_STREAM_KEY_DEFAULT);
+        string _mStreamKey = ChromaSDK.Stream.Default.StreamKey;
         byte _mLenStreamKey = 0;
 
-        string _mStreamFocus = GetDefaultString(LEN_STREAM_FOCUS_DEFAULT);
+        string _mStreamFocus = ChromaSDK.Stream.Default.StreamFocus;
         byte _mLenStreamFocus = 0;
         string _mStreamFocusGuid = "UnitTest-" + Guid.NewGuid();
 
         public int GetInitResult()
         {
             return _mResult;
-        }
-
-        private static string GetDefaultString(uint length)
-        {
-            string result = string.Empty;
-            for (uint i = 0; i < length; ++i)
-            {
-                result += " ";
-            }
-            return result;
         }
 
         public string GetShortcode()
@@ -166,7 +151,7 @@ namespace CSharp_SampleApp
                 case -9:
                     if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
                     {
-                        _mShortCode = GetDefaultString(LEN_SHORTCODE_DEFAULT);
+                        _mShortCode = ChromaSDK.Stream.Default.Shortcode;
                         _mLenShortCode = 0;
                         ChromaAnimationAPI.CoreStreamGetAuthShortcode(ref _mShortCode, out _mLenShortCode, "PC", "C# Sample App 好");
                     }
@@ -174,7 +159,7 @@ namespace CSharp_SampleApp
                 case -8:
                     if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
                     {
-                        _mStreamId = GetDefaultString(LEN_STREAM_ID_DEFAULT);
+                        _mStreamId = ChromaSDK.Stream.Default.StreamId;
                         _mLenStreamId = 0;
                         ChromaAnimationAPI.CoreStreamGetId(_mShortCode, ref _mStreamId, out _mLenStreamId);
                         if (_mLenStreamId > 0)
@@ -186,7 +171,7 @@ namespace CSharp_SampleApp
                 case -7:
                     if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
                     {
-                        _mStreamKey = GetDefaultString(LEN_STREAM_KEY_DEFAULT);
+                        _mStreamKey = ChromaSDK.Stream.Default.StreamKey;
                         _mLenStreamKey = 0;
                         ChromaAnimationAPI.CoreStreamGetKey(_mShortCode, ref _mStreamKey, out _mLenStreamKey);
                         if (_mLenStreamId > 0)
@@ -199,7 +184,7 @@ namespace CSharp_SampleApp
                     if (ChromaAnimationAPI.CoreStreamSupportsStreaming() &&
                         ChromaAnimationAPI.CoreStreamReleaseShortcode(_mShortCode))
                     {
-                        _mShortCode = GetDefaultString(LEN_SHORTCODE_DEFAULT);
+                        _mShortCode = ChromaSDK.Stream.Default.Shortcode;
                         _mLenShortCode = 0;
                     }
                     break;
@@ -233,7 +218,7 @@ namespace CSharp_SampleApp
                 case -1:
                     if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
                     {
-                        _mStreamFocus = GetDefaultString(LEN_STREAM_FOCUS_DEFAULT);
+                        _mStreamFocus = ChromaSDK.Stream.Default.StreamFocus;
                         _mLenStreamFocus = 0;
                         ChromaAnimationAPI.CoreStreamGetFocus(ref _mStreamFocus, out _mLenStreamFocus);
                     }
@@ -243,7 +228,7 @@ namespace CSharp_SampleApp
                     {
                         ChromaAnimationAPI.CoreStreamSetFocus(_mStreamFocusGuid);
 
-                        _mStreamFocus = GetDefaultString(LEN_STREAM_FOCUS_DEFAULT);
+                        _mStreamFocus = ChromaSDK.Stream.Default.StreamFocus;
                         _mLenStreamFocus = 0;
                         ChromaAnimationAPI.CoreStreamGetFocus(ref _mStreamFocus, out _mLenStreamFocus);
                     }

@@ -202,6 +202,29 @@ namespace ChromaSDK
             BROADCAST_DUPLICATE = 5, // The session has duplicate broadcasters
             SERVICE_OFFLINE = 6, // The service is offline
         }
+
+        public class Default
+        {
+            const uint LENGTH_SHORTCODE = 6;
+            const uint LENGTH_STREAM_ID = 48;
+            const uint LENGTH_STREAM_KEY = 48;
+            const uint LENGTH_STREAM_FOCUS = 48;
+
+            static string GetDefaultString(uint length)
+            {
+                string result = string.Empty;
+                for (uint i = 0; i < length; ++i)
+                {
+                    result += " ";
+                }
+                return result;
+            }
+
+            public readonly static string Shortcode = GetDefaultString(LENGTH_SHORTCODE);
+            public readonly static string StreamId = GetDefaultString(LENGTH_STREAM_ID);
+            public readonly static string StreamKey = GetDefaultString(LENGTH_STREAM_KEY);
+            public readonly static string StreamFocus = GetDefaultString(LENGTH_STREAM_FOCUS);
+        }
     }
 
     public class ChromaAnimationAPI
