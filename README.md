@@ -47,10 +47,6 @@ The `C# Sample App` is a C# console app that shows the animations from the [Chro
 
 ## API ##
 
-<a name="api"></a>
-
-## API
-
 * [AddColor](#AddColor)
 * [AddFrame](#AddFrame)
 * [AddNonZeroAllKeysAllFrames](#AddNonZeroAllKeysAllFrames)
@@ -6681,6 +6677,7 @@ double result = ChromaAnimationAPI.SubtractThresholdColorsMinMaxRGBNameD(string 
 **TrimEndFrames**
 
 Trim the end of the animation. The length of the animation will be the lastFrameId
+
 * 1. Reference the animation by id.
 
 ```charp
@@ -6693,6 +6690,7 @@ ChromaAnimationAPI.TrimEndFrames(int animationId, int lastFrameId);
 **TrimEndFramesName**
 
 Trim the end of the animation. The length of the animation will be the lastFrameId
+
 * 1. Reference the animation by name.
 
 ```charp
