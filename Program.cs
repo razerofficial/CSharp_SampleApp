@@ -65,15 +65,15 @@ namespace CSharp_SampleApp
             SampleApp sampleApp = new SampleApp();
             sampleApp.Start();
 
-            int startIndex = 1;
-
-            if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
-            {
-                startIndex = -9;
-            }
-
             if (sampleApp.GetInitResult() == RazerErrors.RZRESULT_SUCCESS)
             {
+                int startIndex = 1;
+
+                if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                {
+                    startIndex = -9;
+                }
+
                 int selectedIndex = 1;
 
                 if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
