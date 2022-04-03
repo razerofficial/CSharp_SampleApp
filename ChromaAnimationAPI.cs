@@ -6843,6 +6843,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginCoreStreamBroadcast(const char* streamId, const char* streamKey);
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginCoreStreamBroadcast(IntPtr streamId, IntPtr streamKey);
         /// <summary>
         /// End broadcasting Chroma RGB data.  StreamGetStatus() should return the BROADCASTING 
@@ -6850,6 +6851,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginCoreStreamBroadcastEnd();
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginCoreStreamBroadcastEnd();
         /// <summary>
         /// shortcode: Pass the address of a preallocated character buffer to get the 
@@ -6871,6 +6873,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginCoreStreamGetFocus(char* focus, unsigned char* length);
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginCoreStreamGetFocus(IntPtr focus, out byte length);
         /// <summary>
         /// Intended for Cloud Gaming Platforms, store the stream id to persist in user 
@@ -6927,6 +6930,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginCoreStreamReleaseShortcode(const char* shortcode);
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginCoreStreamReleaseShortcode(IntPtr shortcode);
         /// <summary>
         /// The focus is a null terminated string. Set the focus identifer for the application 
@@ -6935,6 +6939,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginCoreStreamSetFocus(const char* focus);
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginCoreStreamSetFocus(IntPtr focus);
         /// <summary>
         /// Returns true if the Chroma streaming is supported. If false is returned, 
@@ -6942,6 +6947,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginCoreStreamSupportsStreaming();
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginCoreStreamSupportsStreaming();
         /// <summary>
         /// Begin watching the Chroma RGB data using streamID parameter.  streamId is 
@@ -6950,6 +6956,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginCoreStreamWatch(const char* streamId, unsigned long long timestamp);
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginCoreStreamWatch(IntPtr streamId, ulong timestamp);
         /// <summary>
         /// End watching Chroma RGB data stream.  StreamGetStatus() should return the 
@@ -6957,6 +6964,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginCoreStreamWatchEnd();
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginCoreStreamWatchEnd();
         /// <summary>
         /// Direct access to low level API.
@@ -7877,12 +7885,14 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginHasAnimationLoop(int animationId);
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginHasAnimationLoop(int animationId);
         /// <summary>
         /// Check if the animation has loop enabled referenced by name.
         /// EXPORT_API bool PluginHasAnimationLoopName(const char* path);
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginHasAnimationLoopName(IntPtr path);
         /// <summary>
         /// D suffix for limited data types.
@@ -7994,12 +8004,14 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginIsAnimationPaused(int animationId);
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginIsAnimationPaused(int animationId);
         /// <summary>
         /// Check if the animation is paused referenced by name.
         /// EXPORT_API bool PluginIsAnimationPausedName(const char* path);
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginIsAnimationPausedName(IntPtr path);
         /// <summary>
         /// D suffix for limited data types.
@@ -8013,6 +8025,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginIsDialogOpen();
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginIsDialogOpen();
         /// <summary>
         /// D suffix for limited data types.
@@ -8026,6 +8039,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginIsInitialized();
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginIsInitialized();
         /// <summary>
         /// D suffix for limited data types.
@@ -8038,6 +8052,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginIsPlatformSupported();
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginIsPlatformSupported();
         /// <summary>
         /// D suffix for limited data types.
@@ -8053,6 +8068,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginIsPlaying(int animationId);
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginIsPlaying(int animationId);
         /// <summary>
         /// D suffix for limited data types.
@@ -8068,6 +8084,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginIsPlayingName(const char* path);
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginIsPlayingName(IntPtr path);
         /// <summary>
         /// D suffix for limited data types.
@@ -8082,6 +8099,7 @@ namespace ChromaSDK
         /// EXPORT_API bool PluginIsPlayingType(int deviceType, int device);
         /// </summary>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool PluginIsPlayingType(int deviceType, int device);
         /// <summary>
         /// D suffix for limited data types.
