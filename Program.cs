@@ -8,7 +8,7 @@ namespace CSharp_SampleApp
     {
         const int MAX_ITEMS = 47;
 
-        static void PrintLegend(SampleApp app, int selectedIndex)
+        static void PrintLegend(SampleApp app, int selectedIndex, bool supportsStreaming)
         {
             Console.WriteLine("C# CHROMA SAMPLE APP");
             Console.WriteLine();
@@ -17,7 +17,7 @@ namespace CSharp_SampleApp
 
             int startIndex = 1;
 
-            if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+            if (supportsStreaming)
             {
                 startIndex = -9;
                 Console.WriteLine("Streaming Info (SUPPORTED):");
@@ -69,14 +69,16 @@ namespace CSharp_SampleApp
             {
                 int startIndex = 1;
 
-                if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                bool supportsStreaming = ChromaAnimationAPI.CoreStreamSupportsStreaming();
+
+                if (supportsStreaming)
                 {
                     startIndex = -9;
                 }
 
                 int selectedIndex = 1;
 
-                if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                if (supportsStreaming)
                 {
                     selectedIndex = -9;
                 }
@@ -88,7 +90,7 @@ namespace CSharp_SampleApp
                     if (inputTimer < DateTime.Now)
                     {
                         Console.Clear();
-                        PrintLegend(sampleApp, selectedIndex);
+                        PrintLegend(sampleApp, selectedIndex, supportsStreaming);
                         inputTimer = DateTime.Now + TimeSpan.FromMilliseconds(100);
                     }
                     ConsoleKeyInfo keyInfo = Console.ReadKey();
@@ -113,7 +115,7 @@ namespace CSharp_SampleApp
                     }
                     else if (keyInfo.Key == ConsoleKey.Enter)
                     {
-                        sampleApp.ExecuteItem(selectedIndex);
+                        sampleApp.ExecuteItem(selectedIndex, supportsStreaming);
                     }
                     Thread.Sleep(1);
                 }

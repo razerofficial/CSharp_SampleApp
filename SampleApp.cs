@@ -144,12 +144,12 @@ namespace CSharp_SampleApp
             }
         }
 
-        public void ExecuteItem(int index)
+        public void ExecuteItem(int index, bool supportsStreaming)
         {
             switch (index)
             {
                 case -9:
-                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    if (supportsStreaming)
                     {
                         _mShortCode = ChromaSDK.Stream.Default.Shortcode;
                         _mLenShortCode = 0;
@@ -157,7 +157,7 @@ namespace CSharp_SampleApp
                     }
                     break;
                 case -8:
-                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    if (supportsStreaming)
                     {
                         _mStreamId = ChromaSDK.Stream.Default.StreamId;
                         _mLenStreamId = 0;
@@ -169,7 +169,7 @@ namespace CSharp_SampleApp
                     }
                     break;
                 case -7:
-                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    if (supportsStreaming)
                     {
                         _mStreamKey = ChromaSDK.Stream.Default.StreamKey;
                         _mLenStreamKey = 0;
@@ -181,7 +181,7 @@ namespace CSharp_SampleApp
                     }
                     break;
                 case -6:
-                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming() &&
+                    if (supportsStreaming &&
                         ChromaAnimationAPI.CoreStreamReleaseShortcode(_mShortCode))
                     {
                         _mShortCode = ChromaSDK.Stream.Default.Shortcode;
@@ -189,7 +189,7 @@ namespace CSharp_SampleApp
                     }
                     break;
                 case -5:
-                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming() &&
+                    if (supportsStreaming &&
                         _mLenStreamId > 0 &&
                         _mLenStreamKey > 0)
                     {
@@ -197,26 +197,26 @@ namespace CSharp_SampleApp
                     }
                     break;
                 case -4:
-                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    if (supportsStreaming)
                     {
                         ChromaAnimationAPI.CoreStreamBroadcastEnd();
                     }
                     break;
                 case -3:
-                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming() &&
+                    if (supportsStreaming &&
                         _mLenStreamId > 0)
                     {
                         ChromaAnimationAPI.CoreStreamWatch(_mStreamId, 0);
                     }
                     break;
                 case -2:
-                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    if (supportsStreaming)
                     {
                         ChromaAnimationAPI.CoreStreamWatchEnd();
                     }
                     break;
                 case -1:
-                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    if (supportsStreaming)
                     {
                         _mStreamFocus = ChromaSDK.Stream.Default.StreamFocus;
                         _mLenStreamFocus = 0;
@@ -224,7 +224,7 @@ namespace CSharp_SampleApp
                     }
                     break;
                 case 0:
-                    if (ChromaAnimationAPI.CoreStreamSupportsStreaming())
+                    if (supportsStreaming)
                     {
                         ChromaAnimationAPI.CoreStreamSetFocus(_mStreamFocusGuid);
 
