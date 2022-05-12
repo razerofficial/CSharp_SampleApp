@@ -112,15 +112,44 @@ namespace CSharp_SampleApp
         }
         public void OnApplicationQuit()
         {
-            ChromaAnimationAPI.Uninit();
+            if (_mResult == RazerErrors.RZRESULT_SUCCESS)
+            {
+                ChromaAnimationAPI.StopAll();
+                ChromaAnimationAPI.CloseAll();
+                int result = ChromaAnimationAPI.Uninit();
+                ChromaAnimationAPI.UninitAPI();
+                if (result != RazerErrors.RZRESULT_SUCCESS)
+                {
+                    Console.Error.WriteLine("Failed to uninitialize Chroma!");
+                }
+            }
         }
 
-        public string GetEffectName(int index)
+        public string GetEffectName(int index, byte platform)
         {
             switch (index)
             {
                 case -9:
-                    return "Request Shortcode\t";
+                    {
+                        string result = "Request Shortcode for Platform: ";
+
+                        switch (platform)
+                        {
+                            case 0:
+                                result += "Windows PC (PC)";
+                                break;
+                            case 1:
+                                result += "Windows Cloud (LUNA)";
+                                break;
+                            case 2:
+                                result += "Windows Cloud (GEFORCE NOW)";
+                                break;
+                            case 3:
+                                result += "Windows Cloud (GAME PASS)";
+                                break;
+                        }
+                        return result + System.Environment.NewLine;
+                    }
                 case -8:
                     return "Request StreamId\t";
                 case -7:
@@ -144,7 +173,7 @@ namespace CSharp_SampleApp
             }
         }
 
-        public void ExecuteItem(int index, bool supportsStreaming)
+        public void ExecuteItem(int index, bool supportsStreaming, byte platform)
         {
             switch (index)
             {
@@ -153,7 +182,23 @@ namespace CSharp_SampleApp
                     {
                         _mShortCode = ChromaSDK.Stream.Default.Shortcode;
                         _mLenShortCode = 0;
-                        ChromaAnimationAPI.CoreStreamGetAuthShortcode(ref _mShortCode, out _mLenShortCode, "PC", "C# Sample App 好");
+                        string strPlatform = "PC";
+                        switch (platform)
+                        {
+                            case 0:
+                                strPlatform = "PC";
+                                break;
+                            case 1:
+                                strPlatform = "LUNA";
+                                break;
+                            case 2:
+                                strPlatform = "GEFORCE_NOW";
+                                break;
+                            case 3:
+                                strPlatform = "GAME_PASS";
+                                break;
+                        }
+                        ChromaAnimationAPI.CoreStreamGetAuthShortcode(ref _mShortCode, out _mLenShortCode, strPlatform, "C# Sample App 好");
                     }
                     break;
                 case -8:

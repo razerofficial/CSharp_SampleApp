@@ -8,12 +8,15 @@ namespace CSharp_SampleApp
     {
         const int MAX_ITEMS = 47;
 
-        static void PrintLegend(SampleApp app, int selectedIndex, bool supportsStreaming)
+        static void PrintLegend(SampleApp app, int selectedIndex, bool supportsStreaming, byte platform)
         {
             Console.WriteLine("C# CHROMA SAMPLE APP");
-            Console.WriteLine();
-            Console.WriteLine("Use UP and DOWN arrows to select an animation and press ENTER.");
-            Console.WriteLine();
+            Console.WriteLine("Use `UP` and `DOWN` arrows to select an animation and press `ENTER` to execute.");
+            if (supportsStreaming)
+            {
+                Console.Write("Use `P` to switch streaming platforms. ");
+            }
+            Console.WriteLine("Use `ESC` to QUIT.");
 
             int startIndex = 1;
 
@@ -40,7 +43,7 @@ namespace CSharp_SampleApp
                 {
                     Console.Write("[ ] ");
                 }
-                Console.Write("{0, 8}", app.GetEffectName(index));
+                Console.Write("{0, 8}", app.GetEffectName(index, platform));
 
                 if (index > 0)
                 {
@@ -83,6 +86,8 @@ namespace CSharp_SampleApp
                     selectedIndex = -9;
                 }
 
+                byte platform = 0;
+
                 DateTime inputTimer = DateTime.MinValue;
 
                 while (true)
@@ -90,7 +95,7 @@ namespace CSharp_SampleApp
                     if (inputTimer < DateTime.Now)
                     {
                         Console.Clear();
-                        PrintLegend(sampleApp, selectedIndex, supportsStreaming);
+                        PrintLegend(sampleApp, selectedIndex, supportsStreaming, platform);
                         inputTimer = DateTime.Now + TimeSpan.FromMilliseconds(100);
                     }
                     ConsoleKeyInfo keyInfo = Console.ReadKey();
@@ -113,15 +118,17 @@ namespace CSharp_SampleApp
                     {
                         break;
                     }
+                    else if (keyInfo.Key == ConsoleKey.P)
+                    {
+                        platform = (byte)((platform + 1) % 4); //PC, AMAZON LUNA, MS GAME PASS, NVIDIA GFN
+                    }
                     else if (keyInfo.Key == ConsoleKey.Enter)
                     {
-                        sampleApp.ExecuteItem(selectedIndex, supportsStreaming);
+                        sampleApp.ExecuteItem(selectedIndex, supportsStreaming, platform);
                     }
                     Thread.Sleep(1);
                 }
 
-                ChromaAnimationAPI.StopAll();
-                ChromaAnimationAPI.CloseAll();
                 sampleApp.OnApplicationQuit();
 
             }

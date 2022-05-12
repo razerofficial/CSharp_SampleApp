@@ -733,19 +733,10 @@
     </None>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="CChromaEditorLibrary.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="CChromaEditorLibrary.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="CChromaEditorLibrary64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="CChromaEditorLibrary64.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>COPY /Y "$(SolutionDir)*.dll" "$(SolutionDir)$(OutDir)"
+COPY /Y "$(SolutionDir)*.pdb" "$(SolutionDir)$(OutDir)"
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>
