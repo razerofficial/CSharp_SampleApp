@@ -9,6 +9,11 @@
 * [Quick Start](#quick-start)
 * [See Also](#see-also)
 * [About](#about)
+* [Chroma Editor Library](#chroma-editor-library)
+* [Windows PC](#windows-pc)
+* [Windows Cloud](#windows-cloud)
+* [API Class](#api-class)
+* [Initialization](#initialization)
 * [API](#api)
 
 <a name="see-also"></a>
@@ -42,6 +47,99 @@ The `C# Sample App` is a C# console app that shows the animations from the [Chro
 **Screenshot:**
 
 ![image_1](/images/image_1.png)
+
+---
+
+<a name="chroma-editor-library"></a>
+
+## Chroma Editor Library
+
+The `Chroma Editor Library` is a helper library for Chroma animation playback and realtime manipulation of Chroma animations.
+
+The latest versions of the `Chroma Editor Library` can be found in [Releases](https://github.com/razerofficial/CChromaEditor/releases) for `Windows-PC` and `Windows-Cloud`.
+
+<a name="windows-pc"></a>
+
+## Windows PC
+
+For `Windows PC` builds the `RzChromaSDK.dll` and `RzChromaStreamPlugin.dll` are not packaged with the build. These libraries are automatically updated and managed by Synapse and the Chroma Connect module. Avoid including these files in your build folder for `Windows PC` builds.
+
+**32-bit libraries**
+
+```
+Win32BuildFolder\CChromaEditorLibrary.dll
+```
+
+**64-bit libraries**
+
+```
+Win64BuildFolder\CChromaEditorLibrary64.dll
+```
+
+<a name="windows-cloud"></a>
+
+## Windows Cloud
+
+`Windows Cloud` builds run on cloud platforms using `Windows` such as `Amazon Luna`, `Microsoft Game Pass`, and `NVidia GeForce Now`. Game instances run in the cloud without direct access to Chroma hardware. By running the `Windows Cloud` version of the library `Chroma` effects can reach your local machine and connected hardware. Cloud instances won't have Synapse installed which requires special cloud versions of the libraries. The `Chroma Editor Library` uses the core `RzChromaSDK` low-level library to send Chroma effects to the cloud with the `RzChromaStreamPlugin` streaming library. Viewers can watch the cloud stream via the [Razer Stream Portal](https://stream.razer.com/).
+
+**32-bit libraries**
+
+```
+Win32BuildFolder\CChromaEditorLibrary.dll
+Win32BuildFolder\RzChromaSDK.dll
+Win32BuildFolder\RzChromaStreamPlugin.dll
+```
+
+**64-bit libraries**
+
+```
+Win64BuildFolder\CChromaEditorLibrary64.dll
+Win64BuildFolder\RzChromaSDK64.dll
+Win64BuildFolder\RzChromaStreamPlugin64.dll
+```
+
+<a name="api-class"></a>
+
+## API Class
+
+The `ChromaAnimationAPI` class provides a wrapper for the Chroma Editor Library. The wrapper for the API can be found at [ChromaAnimationAPI.cs](ChromaAnimationAPI.cs).
+
+<a name="initialization"></a>
+
+## Initialization
+
+---
+
+The `ChromaAnimationAPI.InitSDK(ref appInfo)` method returns `RazerErrors.RZRESULT_SUCCESS` when initialization has succeeded. Avoid making calls to the Chroma API when anything other than success is returned. A unsuccessful result indicates `Chroma` is not present on the machine.
+
+```
+  ChromaSDK.APPINFOTYPE appInfo = new APPINFOTYPE();
+
+  appInfo.Title = "Sample Game Title";
+  appInfo.Description = "Sample Game Description";
+  appInfo.Author_Name = "Company Name";
+  appInfo.Author_Contact = "Company Website or Email";
+
+  //    0x01 | // Keyboards
+  //    0x02 | // Mice
+  //    0x04 | // Headset
+  //    0x08 | // Mousepads
+  //    0x10 | // Keypads
+  //    0x20   // ChromaLink devices
+  appInfo.SupportedDevice = (0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x20);
+  //    0x01 | // Utility. (To specifiy this is an utility application)
+  //    0x02   // Game. (To specifiy this is a game);
+  appInfo.Category = 0x02;
+  
+  int result = ChromaAnimationAPI.InitSDK(ref appInfo);
+  if (result != RazerErrors.RZRESULT_SUCCESS)
+  {
+    Console.Error.WriteLine("Failed to initialize Chroma SDK with error={0}\r\n", result);
+
+    // avoid making Chroma API calls after a non-zero init result
+    return;
+  }
+```
 
 <a name="api"></a>
 
