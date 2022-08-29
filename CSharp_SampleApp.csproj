@@ -64,10 +64,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChromaAnimationAPI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RazerErrors.cs" />
+    <Compile Include="Razer\ChromaAnimationAPI.cs" />
+    <Compile Include="Razer\RazerErrors.cs" />
     <Compile Include="SampleApp.cs" />
   </ItemGroup>
   <ItemGroup>
