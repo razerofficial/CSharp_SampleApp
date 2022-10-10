@@ -8,7 +8,7 @@ namespace CSharp_SampleApp
         private int _mResult = 0;
         private Random _mRandom = new Random();
 
-        string _mShortCode = ChromaSDK.Stream.Default.Shortcode;
+        string _mShortcode = ChromaSDK.Stream.Default.Shortcode;
         byte _mLenShortCode = 0;
 
         string _mStreamId = ChromaSDK.Stream.Default.StreamId;
@@ -34,7 +34,7 @@ namespace CSharp_SampleApp
             }
             else
             {
-                return _mShortCode;
+                return _mShortcode;
             }
         }
 
@@ -183,7 +183,7 @@ namespace CSharp_SampleApp
                 case -9:
                     if (supportsStreaming)
                     {
-                        _mShortCode = ChromaSDK.Stream.Default.Shortcode;
+                        _mShortcode = ChromaSDK.Stream.Default.Shortcode;
                         _mLenShortCode = 0;
                         string strPlatform = "PC";
                         switch (platform)
@@ -201,7 +201,7 @@ namespace CSharp_SampleApp
                                 strPlatform = "GAME_PASS";
                                 break;
                         }
-                        ChromaAnimationAPI.CoreStreamGetAuthShortcode(ref _mShortCode, out _mLenShortCode, strPlatform, "C# Sample App 好");
+                        ChromaAnimationAPI.CoreStreamGetAuthShortcode(ref _mShortcode, out _mLenShortCode, strPlatform, "C# Sample App 好");
                     }
                     break;
                 case -8:
@@ -209,7 +209,7 @@ namespace CSharp_SampleApp
                     {
                         _mStreamId = ChromaSDK.Stream.Default.StreamId;
                         _mLenStreamId = 0;
-                        ChromaAnimationAPI.CoreStreamGetId(_mShortCode, ref _mStreamId, out _mLenStreamId);
+                        ChromaAnimationAPI.CoreStreamGetId(_mShortcode, ref _mStreamId, out _mLenStreamId);
                         if (_mLenStreamId > 0)
                         {
                             _mStreamId = _mStreamId.Substring(0, _mLenStreamId);
@@ -221,7 +221,7 @@ namespace CSharp_SampleApp
                     {
                         _mStreamKey = ChromaSDK.Stream.Default.StreamKey;
                         _mLenStreamKey = 0;
-                        ChromaAnimationAPI.CoreStreamGetKey(_mShortCode, ref _mStreamKey, out _mLenStreamKey);
+                        ChromaAnimationAPI.CoreStreamGetKey(_mShortcode, ref _mStreamKey, out _mLenStreamKey);
                         if (_mLenStreamId > 0)
                         {
                             _mStreamKey = _mStreamKey.Substring(0, _mLenStreamKey);
@@ -230,9 +230,9 @@ namespace CSharp_SampleApp
                     break;
                 case -6:
                     if (supportsStreaming &&
-                        ChromaAnimationAPI.CoreStreamReleaseShortcode(_mShortCode))
+                        ChromaAnimationAPI.CoreStreamReleaseShortcode(_mShortcode))
                     {
-                        _mShortCode = ChromaSDK.Stream.Default.Shortcode;
+                        _mShortcode = ChromaSDK.Stream.Default.Shortcode;
                         _mLenShortCode = 0;
                     }
                     break;
