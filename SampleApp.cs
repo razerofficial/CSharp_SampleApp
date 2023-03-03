@@ -4553,6 +4553,8 @@ namespace CSharp_SampleApp
                 }
                 radius += speed;
             }
+            // turn on custom key flag
+            ChromaAnimationAPI.SetChromaCustomFlagName(baseLayer, true);
             // play at top speed
             ChromaAnimationAPI.OverrideFrameDurationName(baseLayer, 0.033f);
             // play the animation on the dynamic canvas
@@ -4671,6 +4673,8 @@ namespace CSharp_SampleApp
                     ChromaAnimationAPI.SetKeyColorName(baseLayer, frameIndex, key, color);
                 }
             }
+            // turn on custom key flag
+            ChromaAnimationAPI.SetChromaCustomFlagName(baseLayer, true);
             // play at top speed
             ChromaAnimationAPI.OverrideFrameDurationName(baseLayer, 0.033f);
             // play the animation on the dynamic canvas
